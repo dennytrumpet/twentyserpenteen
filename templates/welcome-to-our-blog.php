@@ -13,6 +13,29 @@ get_header(); ?>
                     'menu_class' => 'evergreen-content',
                 )); ?>
                 <hr />
+                <?php $query = new WP_Query(array(
+                    'post_type'=> 'post'
+                )); ?>
+                <?php if($query->have_posts()): ?>
+                    <p>Check out <i>these</i> fuckin posts:</p>
+                    <?php while ($query->have_posts() ): ?>
+                        <?php $query->the_post(); ?>
+                        <article>
+                        <h2><a href="<?php the_permalink(); ?>"> <?php the_title ();?></a></h2>
+                        <?php the_content(); ?>
+                        </article>
+                    <?php endwhile; ?>
+                    <?php wp_reset_postdata(); ?>
+                <?php endif; ?>
+                <hr />
+                <?php if(have_posts()): ?>
+                    <?php while (have_posts() ): ?>
+                        <?php the_post(); ?>
+                        <?php the_content(); ?>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+
+
             </main><!-- #main -->
         </div><!-- #primary -->
     </div><!-- .wrap -->
